@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <title>本穴世界v0.2.0.250602</title>
+    <title>本穴世界v0.3.1.250622</title>
     <style>
         body {
             background: #222;
@@ -322,11 +322,24 @@
         <button onclick="removeSeat()">减少座位</button>
         <span id="seatCount"></span>
         <button onclick="addSeat()">增加座位</button>
+        <button id="roleFilterBtn" onclick="showRoleFilterDialog()" style="background:#27ae60;color:#fff;">身份筛选</button>
         <button onclick="resetAll()" style="background:#888;color:#fff;">重置</button>
     </div>
     <div class="death-marker" id="deathMarker" draggable="true" title="拖动到座位上标记死亡"></div>
     <div class="out-marker" id="outMarker" draggable="true" title="拖动到座位上标记票出"></div>
     <div class="circle-container" id="circleContainer"></div>
+
+    <!-- 身份筛选弹窗输入框 -->
+    <div id="roleFilterDialog" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:9999;background:rgba(0,0,0,0.3);align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:24px 20px 16px 20px;border-radius:10px;min-width:340px;box-shadow:0 4px 24px #0005;display:flex;flex-direction:column;align-items:center;">
+            <div style="font-size:18px;color:#333;margin-bottom:12px;">身份筛选</div>
+            <textarea id="roleFilterDialogInput" placeholder="输入身份名关键词" style="width:300px;height:72px;font-size:16px;padding:6px 8px;border-radius:5px;border:1px solid #ccc;margin-bottom:16px;resize:vertical;"></textarea>
+            <div style="display:flex;gap:12px;">
+                <button onclick="applyRoleFilter()" style="background:#27ae60;color:#fff;">确定</button>
+                <button onclick="closeRoleFilterDialog()" style="background:#888;color:#fff;">取消</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 投票牌区域 -->
     <div class="vote-area-container">
@@ -343,10 +356,10 @@
     <script>
         // 规定的名称列表
         const nameGroups = [
-            { title: "南宋",      class: "song",     names: ["赵昀", "史弥远", "郑清之", "史嵩之", "贾似道", "魏了翁", "刘克庄", "吴潜", "杜范", "叶适", "陈宜中", "宋慈", "孟珙（荆阃）", "赵葵（淮阃）", "余玠（蜀阃）", "吕文德（荆阃）", "陈韡（江阃）", "贾涉（淮阃）", "安丙（蜀阃）", "李曾伯（桂阃）", "李庭芝（淮阃）", "马光祖（江阃）"] },
-            { title: "外来者",    class: "outsider", names: ["完颜守绪", "蒲察官奴", "张天纲", "武仙", "李遵顼", "高泰祥"] },
-            { title: "蒙古",      class: "mongolia",     names: ["窝阔台", "拖雷", "蒙哥", "忽必烈", "伯颜", "塔察儿", "八思巴", "刘整"] },
-            { title: "第三方",      class: "third", names: ["李全", "范文虎", "李璮", "国用安", "汪世显"] }
+            { title: "南宋",      class: "song",     names: ["赵昀", "史弥远", "郑清之", "史嵩之", "贾似道", "魏了翁", "刘克庄", "吴潜", "杜范", "叶适", "谢方叔", "陈宜中", "宋慈", "文天祥", "秦九韶", "孟珙（荆阃）", "赵葵（淮阃）", "余玠（蜀阃）", "吕文德（荆阃）", "陈韡（江阃）", "贾涉（淮阃）", "安丙（蜀阃）", "李曾伯（桂阃）", "李庭芝（淮阃）", "杨文（蜀阃）", "马光祖（江阃）", "张世杰（江阃）", "夏贵（淮阃）"] },
+            { title: "外来者",    class: "outsider", names: ["完颜守绪", "蒲察官奴", "张天纲", "武仙", "李遵顼", "高泰祥", "蒲寿庚"] },
+            { title: "蒙古",      class: "mongolia",     names: ["窝阔台", "拖雷", "蒙哥", "忽必烈", "伯颜", "刘秉忠", "塔察儿", "八思巴", "刘整", "旭烈兀", "兀良合台", "张弘范", "郝经"] },
+            { title: "第三方",      class: "third", names: ["李全", "范文虎", "李璮", "国用安", "汪世显", "丘处机", "杨琏真迦"] }
         ];
         // 合并所有角色名用于初始化
         const nameList = nameGroups.flatMap(g => g.names);
@@ -387,6 +400,35 @@
             for (let i = 0; i < count; i++) voteMap.push([]);
         }
 
+        // 身份筛选功能
+        let roleFilter = "";
+
+        function showRoleFilterDialog() {
+            document.getElementById('roleFilterDialog').style.display = 'flex';
+            const input = document.getElementById('roleFilterDialogInput');
+            input.value = roleFilter;
+            setTimeout(() => input.focus(), 100);
+        }
+        function closeRoleFilterDialog() {
+            document.getElementById('roleFilterDialog').style.display = 'none';
+        }
+        function applyRoleFilter() {
+            const input = document.getElementById('roleFilterDialogInput');
+            roleFilter = input.value.trim();
+            closeRoleFilterDialog();
+            renderSeats();
+            renderVoteArea();
+        }
+        // 支持回车确定、ESC关闭（textarea内Ctrl+Enter确定，ESC关闭）
+        document.getElementById('roleFilterDialogInput').addEventListener('keydown', function(e){
+            if(e.key === 'Enter' && (e.ctrlKey || e.metaKey)) applyRoleFilter();
+            if(e.key === 'Escape') closeRoleFilterDialog();
+        });
+        // 点击弹窗外关闭
+        document.getElementById('roleFilterDialog').addEventListener('mousedown', function(e){
+            if(e.target === this) closeRoleFilterDialog();
+        });
+
         function renderSeats() {
             const container = document.getElementById('circleContainer');
             container.innerHTML = '';
@@ -420,20 +462,34 @@
                 // 搜索逻辑：根据输入内容筛选名称
                 let inputValue = seats[i].name.trim();
                 let dropdownHtml = '';
+                // 身份筛选逻辑
+                let filterText = roleFilter;
                 if (inputValue === '') {
-                    // 没有输入，显示全部
-                    dropdownHtml = nameGroups.map(group => `
-                        <div class="dropdown-group-title">${group.title}</div>
-                        ${group.names.map(name =>
-                            `<div class="dropdown-item ${group.class}" onclick="selectName(${i}, '${name}')">${name}</div>`
-                        ).join('')}
-                    `).join('');
+                    // 没有输入，显示全部或筛选
+                    dropdownHtml = nameGroups.map(group => {
+                        let names = group.names;
+                        if (filterText) {
+                            names = names.filter(name => filterText.split(/\s+/).some(f => f && name.includes(f)));
+                        }
+                        if (names.length === 0) return '';
+                        return `
+                            <div class="dropdown-group-title">${group.title}</div>
+                            ${names.map(name =>
+                                `<div class="dropdown-item ${group.class}" onclick="selectName(${i}, '${name}')">${name}</div>`
+                            ).join('')}
+                        `;
+                    }).join('');
+                    if (dropdownHtml.replace(/\s/g, '') === '') {
+                        dropdownHtml = `<div style="padding:8px 12px;color:#888;">无匹配结果</div>`;
+                    }
                 } else {
                     // 有输入，筛选
                     let hasResult = false;
                     dropdownHtml = nameGroups.map(group => {
-                        // 只显示匹配的
-                        const filteredNames = group.names.filter(name => name.includes(inputValue));
+                        let filteredNames = group.names.filter(name => name.includes(inputValue));
+                        if (filterText) {
+                            filteredNames = filteredNames.filter(name => filterText.split(/\s+/).some(f => f && name.includes(f)));
+                        }
                         if (filteredNames.length === 0) return '';
                         hasResult = true;
                         return `
@@ -660,19 +716,33 @@
 
         // 根据输入内容刷新下拉列表
         function updateDropdown(index) {
-            const inputValue = seats[index].name.trim();
+                const inputValue = seats[index].name.trim();
             let dropdownHtml = '';
+            let filterText = roleFilter;
             if (inputValue === '') {
-                dropdownHtml = nameGroups.map(group => `
-                    <div class="dropdown-group-title">${group.title}</div>
-                    ${group.names.map(name =>
-                        `<div class="dropdown-item ${group.class}" onclick="selectName(${index}, '${name}')">${name}</div>`
-                    ).join('')}
-                `).join('');
+                dropdownHtml = nameGroups.map(group => {
+                    let names = group.names;
+                    if (filterText) {
+                        names = names.filter(name => filterText.split(/\s+/).some(f => f && name.includes(f)));
+                    }
+                    if (names.length === 0) return '';
+                    return `
+                        <div class="dropdown-group-title">${group.title}</div>
+                        ${names.map(name =>
+                            `<div class="dropdown-item ${group.class}" onclick="selectName(${index}, '${name}')">${name}</div>`
+                        ).join('')}
+                    `;
+                }).join('');
+                if (dropdownHtml.replace(/\s/g, '') === '') {
+                    dropdownHtml = `<div style="padding:8px 12px;color:#888;">无匹配结果</div>`;
+                }
             } else {
                 let hasResult = false;
                 dropdownHtml = nameGroups.map(group => {
-                    const filteredNames = group.names.filter(name => name.includes(inputValue));
+                    let filteredNames = group.names.filter(name => name.includes(inputValue));
+                    if (filterText) {
+                        filteredNames = filteredNames.filter(name => filterText.split(/\s+/).some(f => f && name.includes(f)));
+                    }
                     if (filteredNames.length === 0) return '';
                     hasResult = true;
                     return `
