@@ -1,0 +1,239 @@
+/* 历史记录框样式 */
+.history-panel {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    width: 360px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.history-header {
+    padding: 8px 12px;
+    background: rgba(68, 68, 68, 0.8);
+    border-bottom: 1px solid #555;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.history-panel.dragging {
+    opacity: 0.8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.history-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.history-clear-btn {
+    background: #666;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.history-clear-btn:hover {
+    background: #888;
+}
+
+.history-export-btn {
+    background: #0066cc;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.history-export-btn:hover {
+    background: #0088ff;
+}
+
+.history-content {
+    padding: 8px 12px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.history-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.history-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.history-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.history-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* 历史记录框调节手柄 */
+.history-resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: nw-resize;
+    border-radius: 8px 0 8px 0;
+    transition: background 0.2s;
+}
+
+.history-resize-handle:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.history-resize-handle::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-bottom: 6px solid rgba(255, 255, 255, 0.6);
+}
+
+.history-item {
+    margin: 4px 0;
+    padding: 4px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.history-item.death {
+    border-left-color: #e74c3c;
+}
+
+.history-item.out {
+    border-left-color: #f39c12;
+}
+
+.history-item.suicide {
+    border-left-color: #8B0000;
+}
+
+.history-item.flip {
+    border-left-color: #3498db;
+}
+
+.history-item.surrender {
+    border-left-color: #9b59b6;
+}
+
+.history-item.economy_gain {
+    border-left-color: #27ae60;
+}
+
+.history-item.economy_loss {
+    border-left-color: #3498db;
+}
+
+.history-item.vote_summary {
+    border-left-color: #9b59b6;
+}
+
+.history-item.economy {
+    border-left-color: #f1c40f;
+    background: rgba(241, 196, 15, 0.2);
+}
+
+.history-item.skill {
+    border-left-color: #3498db;
+}
+
+.history-item.seat_pick {
+    border-left-color: #9b59b6;
+    background: rgba(155, 89, 182, 0.2);
+}
+
+.history-item .seat-number {
+    font-weight: bold;
+    color: #3498db;
+}
+
+.history-item .character-name {
+    color: #2ecc71;
+}
+
+.history-item .action {
+    color: #fff;
+}
+
+.history-item .delete-btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: rgba(231, 76, 60, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 10px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
+}
+
+.history-item:hover .delete-btn {
+    display: flex;
+}
+
+.history-item .delete-btn:hover {
+    background: rgba(231, 76, 60, 1);
+    transform: scale(1.1);
+}
+
+.history-item .copy-btn {
+    position: absolute;
+    right: 24px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: rgba(52, 152, 219, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 8px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
+}
+
+.history-item:hover .copy-btn {
+    display: flex;
+}
+
+.history-item .copy-btn:hover {
+    background: rgba(52, 152, 219, 1);
+    transform: scale(1.1);
+}

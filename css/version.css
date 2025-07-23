@@ -1,0 +1,178 @@
+/* 版本通知样式 */
+.version-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e1e5e9;
+    min-width: 320px;
+    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.version-notification.checking {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.version-notification.error {
+    background: #fff5f5;
+    border-color: #fed7d7;
+}
+
+.version-notification-content {
+    padding: 0;
+}
+
+.version-notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 16px 0 16px;
+}
+
+.version-notification-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.version-notification-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #a0aec0;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.version-notification-close:hover {
+    background: #edf2f7;
+    color: #4a5568;
+}
+
+.version-notification-body {
+    padding: 12px 16px 16px 16px;
+}
+
+.version-notification-body p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.5;
+}
+
+.version-notification-body p:last-child {
+    margin-bottom: 0;
+}
+
+.version-update-available {
+    color: #38a169 !important;
+    font-weight: 500;
+}
+
+.version-up-to-date {
+    color: #319795 !important;
+    font-weight: 500;
+}
+
+.version-setup-needed {
+    color: #d69e2e !important;
+    font-weight: 500;
+}
+
+.version-notification-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.version-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.version-btn-primary {
+    background: #3182ce;
+    color: #fff;
+}
+
+.version-btn-primary:hover {
+    background: #2c5aa0;
+    color: #fff;
+}
+
+.version-btn-secondary {
+    background: #edf2f7;
+    color: #4a5568;
+}
+
+.version-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* 版本检查按钮样式 */
+#versionCheckBtn {
+    background: #4a5568;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#versionCheckBtn:hover {
+    background: #2d3748;
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+    .version-notification {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .version-notification-actions {
+        flex-direction: column;
+    }
+    
+    .version-btn {
+        width: 100%;
+    }
+}

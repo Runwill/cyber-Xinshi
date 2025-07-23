@@ -1,0 +1,19 @@
+{
+  "name": "benxue-world",
+  "version": "1.0.0",
+  "description": "本穴世界",
+  "main": "index.html",
+  "scripts": {
+    "build": "node build.js build",
+    "build-min": "node build.js build-min",
+    "clean": "node build.js clean",
+    "rebuild": "node build.js rebuild",
+    "rebuild-min": "node build.js rebuild-min"
+  },
+  "keywords": ["werewolf", "game", "tool", "html", "javascript"],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

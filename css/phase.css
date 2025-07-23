@@ -1,0 +1,155 @@
+/* 流程标志窗样式 */
+.phase-panel {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 280px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.phase-header {
+    padding: 8px 12px;
+    background: rgba(68, 68, 68, 0.8);
+    border-bottom: 1px solid #555;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.phase-panel.dragging {
+    opacity: 0.8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.phase-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.phase-time {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.phase-time.day {
+    background: rgba(255, 193, 7, 0.3);
+    color: #ffc107;
+}
+
+.phase-time.night {
+    background: rgba(33, 37, 41, 0.8);
+    color: #6c757d;
+}
+
+.phase-day-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 4px 0;
+}
+
+.phase-day {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    flex: 1;
+    min-width: 60px;
+}
+
+.day-counter-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #3498db;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.day-counter-btn:hover {
+    background: rgba(52, 152, 219, 0.3);
+    transform: scale(1.1);
+}
+
+.day-counter-btn:active {
+    transform: scale(0.95);
+}
+
+.phase-settlement {
+    background: rgba(52, 152, 219, 0.2);
+    border: 1px solid #3498db;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phase-settlement.empty {
+    color: #888;
+    font-style: italic;
+}
+
+.phase-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.phase-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.phase-btn:hover {
+    background: #217dbb;
+}
+
+.phase-btn.day-night {
+    background: #f39c12;
+}
+
+.phase-btn.day-night:hover {
+    background: #d68910;
+}
+
+.phase-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}

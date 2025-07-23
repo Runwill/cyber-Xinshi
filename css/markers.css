@@ -1,0 +1,146 @@
+/* 标记器样式 */
+.death-marker {
+    width: 40px;
+    height: 40px;
+    background: url('https://img.icons8.com/?size=100&id=zZo1Yf9pQBEb&format=png&color=000000') no-repeat center/contain;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: fixed;
+    left: 20px;
+    top: 100px;
+    cursor: grab;
+    z-index: 1000;
+}
+
+.out-marker {
+    width: 40px;
+    height: 40px;
+    background: url('https://img.icons8.com/?size=100&id=V5goKm6cjMTm&format=png&color=000000') no-repeat center/contain;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: fixed;
+    left: 20px;
+    top: 160px;
+    cursor: grab;
+    z-index: 1000;
+}
+
+.suicide-marker {
+    width: 40px;
+    height: 40px;
+    background: url('https://img.icons8.com/?size=100&id=WbzwgmqepcuN&format=png&color=000000') no-repeat center/contain;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: fixed;
+    left: 20px;
+    top: 220px;
+    cursor: grab;
+    z-index: 1000;
+}
+
+.flip-marker {
+    width: 40px;
+    height: 40px;
+    background: #3498db;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: fixed;
+    left: 20px;
+    top: 280px;
+    cursor: grab;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.flip-marker::before {
+    content: '翻';
+}
+
+.surrender-marker {
+    width: 40px;
+    height: 40px;
+    background: #9b59b6;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: fixed;
+    left: 20px;
+    top: 340px;
+    cursor: grab;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.surrender-marker::before {
+    content: '叛';
+}
+
+/* 座位状态图标样式 */
+.seat .death-icon::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url('https://img.icons8.com/?size=100&id=zZo1Yf9pQBEb&format=png&color=000000') no-repeat center/contain;
+}
+
+.seat .out-icon::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url('https://img.icons8.com/?size=100&id=V5goKm6cjMTm&format=png&color=000000') no-repeat center/contain;
+    filter: drop-shadow(0 0 2px #4b4b4b);
+}
+
+.seat .suicide-icon::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url('https://img.icons8.com/?size=100&id=WbzwgmqepcuN&format=png&color=000000') no-repeat center/contain;
+}
+
+.seat .flip-icon {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(52, 152, 219, 0.8), 0 0 1px #000;
+    cursor: grab;
+    z-index: 10;
+    opacity: 0.5;
+    color: #3498db;
+}
+
+.seat .surrender-icon {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(155, 89, 182, 0.8), 0 0 1px #000;
+    cursor: grab;
+    z-index: 10;
+    opacity: 0.5;
+    color: #9b59b6;
+}
+
+.seat .death-icon,
+.seat .suicide-icon,
+.seat .out-icon {
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+    cursor: grab;
+}

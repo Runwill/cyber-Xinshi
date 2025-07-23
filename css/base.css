@@ -1,0 +1,78 @@
+/* 基础样式 */
+body {
+    background: #222;
+    color: #fff;
+    font-family: "微软雅黑", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+.counter-container {
+    margin: 10px 0 0px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.counter-container input {
+    width: 60px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    padding: 4px 6px;
+}
+
+.counter-container button {
+    padding: 4px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.counter-container button:hover {
+    background: #217dbb;
+}
+
+.circle-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+button {
+    margin: 0 8px;
+    padding: 6px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    background: #e74c3c;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #c0392b;
+}
+
+footer a {
+    color: #444 !important;
+    text-decoration: none;
+}
+footer a:visited,
+footer a:hover,
+footer a:active {
+    color: #444 !important;
+}
