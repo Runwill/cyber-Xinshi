@@ -4,19 +4,6 @@ class VersionChecker {
         // 从config.js中获取当前版本，如果不存在则使用默认值
         this.currentVersion = (typeof APP_VERSION !== 'undefined' ? APP_VERSION : '1.0.0').replace(/^v/, '');
         this.githubRepo = 'Runwill/cyber-Xinshi'; // GitHub仓库
-        this.checkInterval = 24 * 60 * 60 * 1000; // 24小时检查一次
-        this.lastCheckTime = this.getLastCheckTime();
-    }
-
-    // 获取上次检查时间
-    getLastCheckTime() {
-        const saved = localStorage.getItem('lastVersionCheck');
-        return saved ? parseInt(saved) : 0;
-    }
-
-    // 保存检查时间
-    saveLastCheckTime() {
-        localStorage.setItem('lastVersionCheck', Date.now().toString());
     }
 
     // 比较版本号
@@ -104,20 +91,11 @@ class VersionChecker {
     }
 
     // 检查是否需要更新
-    async checkForUpdate(force = false) {
-        const now = Date.now();
-        
-        // 如果不是强制检查且距离上次检查时间不足24小时，则跳过
-        if (!force && (now - this.lastCheckTime) < this.checkInterval) {
-            return null;
-        }
-
+    async checkForUpdate() {
         const latestInfo = await this.fetchLatestVersion();
         if (!latestInfo) {
             return null;
         }
-
-        this.saveLastCheckTime();
 
         // 如果没有releases，返回特殊状态
         if (latestInfo.noReleases) {
@@ -212,13 +190,7 @@ class VersionChecker {
         }
     }
 
-    // 自动检查更新
-    async autoCheck() {
-        const updateInfo = await this.checkForUpdate(false);
-        if (updateInfo && updateInfo.hasUpdate) {
-            this.showUpdateNotification(updateInfo);
-        }
-    }
+
 
     // 手动检查更新
     async manualCheck() {
@@ -234,7 +206,7 @@ class VersionChecker {
         `;
         document.body.appendChild(checkingNotification);
 
-        const updateInfo = await this.checkForUpdate(true);
+        const updateInfo = await this.checkForUpdate();
         
         // 移除检查中的提示
         checkingNotification.remove();
@@ -269,11 +241,3 @@ class VersionChecker {
 
 // 创建全局版本检查器实例
 const versionChecker = new VersionChecker();
-
-// 页面加载完成后自动检查更新
-document.addEventListener('DOMContentLoaded', () => {
-    // 延迟2秒后自动检查，避免影响页面加载
-    setTimeout(() => {
-        versionChecker.autoCheck();
-    }, 2000);
-});
