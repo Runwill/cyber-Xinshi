@@ -1,0 +1,109 @@
+/* 身份信息面板样式 - 类似历史记录框 */
+.role-info-panel {
+    position: fixed;
+    right: 20px;
+    top: 120px;
+    width: 280px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.role-info-header {
+    padding: 8px 12px;
+    background: rgba(68, 68, 68, 0.8);
+    border-bottom: 1px solid #555;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.role-info-panel.dragging {
+    opacity: 0.8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.role-info-content {
+    padding: 12px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-info-empty {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+}
+
+.role-info-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.role-info-faction {
+    font-size: 14px;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.role-info-seat {
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+}
+
+/* 根据阵营设置不同的颜色 */
+.role-info-panel.song .role-info-name {
+    color: #2980b9;
+}
+
+.role-info-panel.song {
+    border-color: #2980b9;
+}
+
+.role-info-panel.outsider .role-info-name {
+    color: #f1c40f;
+}
+
+.role-info-panel.outsider {
+    border-color: #f1c40f;
+}
+
+.role-info-panel.mongolia .role-info-name {
+    color: #e74c3c;
+}
+
+.role-info-panel.mongolia {
+    border-color: #e74c3c;
+}
+
+.role-info-panel.third .role-info-name {
+    color: #27ae60;
+}
+
+.role-info-panel.third {
+    border-color: #27ae60;
+}
+
+.role-info-panel.unknown .role-info-name {
+    color: #999;
+}
+
+.role-info-panel.unknown {
+    border-color: #666;
+}

@@ -252,6 +252,11 @@ function renderSeats() {
         seatDiv.appendChild(seatVotes);
     }
     document.getElementById('seatCount').textContent = `座位数：${n}`;
+    
+    // 初始化身份悬浮框监听器
+    if (typeof initRoleTooltip === 'function') {
+        initRoleTooltip();
+    }
 }
 
 // 增加座位
@@ -284,6 +289,12 @@ function removeSeat() {
 function updateName(index, value) {
     seats[index].name = value;
     updatePhaseDisplay(); // 更新流程标志窗显示
+    
+    // 更新身份悬浮框内容
+    if (typeof onSeatNameChanged === 'function') {
+        onSeatNameChanged();
+    }
+    
     saveState();
 }
 
@@ -293,6 +304,12 @@ function selectName(index, value) {
     renderSeats();
     renderVoteArea();
     updatePhaseDisplay(); // 更新流程标志窗显示
+    
+    // 更新身份悬浮框内容
+    if (typeof onSeatNameChanged === 'function') {
+        onSeatNameChanged();
+    }
+    
     saveState();
 }
 
