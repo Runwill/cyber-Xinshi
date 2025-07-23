@@ -190,7 +190,18 @@ class VersionChecker {
         }
     }
 
-
+    // 自动检查更新（页面加载时调用）
+    async autoCheck() {
+        try {
+            const updateInfo = await this.checkForUpdate();
+            if (updateInfo && updateInfo.hasUpdate) {
+                this.showUpdateNotification(updateInfo);
+            }
+        } catch (error) {
+            // 静默处理自动检查的错误，避免影响用户体验
+            console.warn('自动检查更新失败:', error);
+        }
+    }
 
     // 手动检查更新
     async manualCheck() {
@@ -241,3 +252,11 @@ class VersionChecker {
 
 // 创建全局版本检查器实例
 const versionChecker = new VersionChecker();
+
+// 页面加载完成后自动检查更新
+document.addEventListener('DOMContentLoaded', () => {
+    // 延迟2秒后自动检查，避免影响页面加载
+    setTimeout(() => {
+        versionChecker.autoCheck();
+    }, 2000);
+});
