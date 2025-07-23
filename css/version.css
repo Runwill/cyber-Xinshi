@@ -158,6 +158,21 @@
     }
 }
 
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.version-notification.slide-out {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
 /* 响应式设计 */
 @media (max-width: 480px) {
     .version-notification {

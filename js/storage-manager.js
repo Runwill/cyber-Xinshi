@@ -117,5 +117,8 @@ function resetAll() {
         
         // 重置流程标志窗位置
         resetPhasePanelPosition();
+        
+        // 重置身份信息框位置
+        resetRoleInfoPanelPosition();
     }
 }

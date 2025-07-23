@@ -26,11 +26,38 @@ class RoleInfoPanelManager {
         `;
         document.body.appendChild(this.panel);
         
+        // 加载保存的位置
+        this.loadSavedPosition();
+        
         // 添加拖拽功能
         this.initDragFunctionality();
         
         console.log('身份信息面板已创建并添加到DOM');
         this.initialized = true;
+    }
+
+    // 加载保存的位置
+    loadSavedPosition() {
+        const savedPosition = localStorage.getItem('roleInfoPanelPosition');
+        if (savedPosition) {
+            try {
+                const position = JSON.parse(savedPosition);
+                if (position.left !== undefined) {
+                    this.panel.style.left = position.left + 'px';
+                    this.panel.style.top = position.top + 'px';
+                    this.panel.style.right = 'auto';
+                    this.panel.style.bottom = 'auto';
+                } else {
+                    this.panel.style.right = position.right + 'px';
+                    this.panel.style.top = position.top + 'px';
+                    this.panel.style.left = 'auto';
+                    this.panel.style.bottom = 'auto';
+                }
+            } catch (e) {
+                // 如果解析失败，使用默认位置
+                console.log('解析保存的身份信息面板位置失败，使用默认位置');
+            }
+        }
     }
 
     // 初始化拖拽功能
@@ -76,6 +103,19 @@ class RoleInfoPanelManager {
         
         document.removeEventListener('mousemove', this.handleDragMove);
         document.removeEventListener('mouseup', this.handleDragEnd);
+        
+        // 保存位置
+        this.savePosition();
+    }
+
+    // 保存当前位置到localStorage
+    savePosition() {
+        const rect = this.panel.getBoundingClientRect();
+        const position = {
+            left: rect.left,
+            top: rect.top
+        };
+        localStorage.setItem('roleInfoPanelPosition', JSON.stringify(position));
     }
 
     // 显示身份信息
@@ -194,6 +234,19 @@ function handleSeatMouseEnter(event) {
 function handleSeatMouseLeave(event) {
     // 鼠标离开座位时不做任何操作，保持面板显示最后悬停的座位信息
     console.log('鼠标离开座位，保持面板显示');
+}
+
+// 重置身份信息面板位置
+function resetRoleInfoPanelPosition() {
+    if (roleInfoPanelManager.panel) {
+        roleInfoPanelManager.panel.style.right = '20px';
+        roleInfoPanelManager.panel.style.top = '280px';
+        roleInfoPanelManager.panel.style.left = 'auto';
+        roleInfoPanelManager.panel.style.bottom = 'auto';
+        
+        // 清除保存的位置
+        localStorage.removeItem('roleInfoPanelPosition');
+    }
 }
 
 // 在座位渲染后调用此函数来添加事件监听器

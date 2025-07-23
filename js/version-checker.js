@@ -6,6 +6,20 @@ class VersionChecker {
         this.githubRepo = 'Runwill/cyber-Xinshi'; // GitHub仓库
     }
 
+    // 带动画的移除通知框
+    removeNotificationWithAnimation(notification) {
+        if (!notification || !notification.parentElement) return;
+        
+        notification.classList.add('slide-out');
+        
+        // 等待动画完成后移除元素
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 300); // 与CSS动画时间保持一致
+    }
+
     // 比较版本号
     compareVersions(v1, v2) {
         const parts1 = v1.split('.').map(n => parseInt(n));
@@ -130,7 +144,7 @@ class VersionChecker {
                 <div class="version-notification-content">
                     <div class="version-notification-header">
                         <span class="version-notification-title">📋 需要配置版本发布</span>
-                        <button class="version-notification-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                        <button class="version-notification-close" onclick="versionChecker.removeNotificationWithAnimation(this.parentElement.parentElement.parentElement)">×</button>
                     </div>
                     <div class="version-notification-body">
                         <p>当前版本: v${updateInfo.currentVersion}</p>
@@ -140,7 +154,7 @@ class VersionChecker {
                             <a href="${updateInfo.repoUrl}/releases/new" target="_blank" class="version-btn version-btn-primary">
                                 创建Release
                             </a>
-                            <button class="version-btn version-btn-secondary" onclick="this.parentElement.parentElement.parentElement.parentElement.remove()">
+                            <button class="version-btn version-btn-secondary" onclick="versionChecker.removeNotificationWithAnimation(this.parentElement.parentElement.parentElement.parentElement)">
                                 稍后配置
                             </button>
                         </div>
@@ -155,7 +169,7 @@ class VersionChecker {
                         <span class="version-notification-title">
                             ${updateInfo.hasUpdate ? '🎉 发现新版本' : '✅ 已是最新版本'}
                         </span>
-                        <button class="version-notification-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                        <button class="version-notification-close" onclick="versionChecker.removeNotificationWithAnimation(this.parentElement.parentElement.parentElement)">×</button>
                     </div>
                     <div class="version-notification-body">
                         <p>当前版本: v${updateInfo.currentVersion}</p>
@@ -166,7 +180,7 @@ class VersionChecker {
                                 <a href="${updateInfo.latestInfo.url}" target="_blank" class="version-btn version-btn-primary">
                                     查看更新
                                 </a>
-                                <button class="version-btn version-btn-secondary" onclick="this.parentElement.parentElement.parentElement.parentElement.remove()">
+                                <button class="version-btn version-btn-secondary" onclick="versionChecker.removeNotificationWithAnimation(this.parentElement.parentElement.parentElement.parentElement)">
                                     稍后提醒
                                 </button>
                             </div>
@@ -183,9 +197,7 @@ class VersionChecker {
         // 3秒后自动消失（仅对已是最新版本的通知）
         if (!updateInfo.noReleases && !updateInfo.hasUpdate) {
             setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
+                this.removeNotificationWithAnimation(notification);
             }, 3000);
         }
     }
@@ -232,7 +244,7 @@ class VersionChecker {
                 <div class="version-notification-content">
                     <div class="version-notification-header">
                         <span class="version-notification-title">❌ 检查更新失败</span>
-                        <button class="version-notification-close" onclick="this.parentElement.parentElement.parentElement.remove()">×</button>
+                        <button class="version-notification-close" onclick="versionChecker.removeNotificationWithAnimation(this.parentElement.parentElement.parentElement)">×</button>
                     </div>
                     <div class="version-notification-body">
                         <p>无法连接到GitHub，请检查网络连接</p>
@@ -242,9 +254,7 @@ class VersionChecker {
             document.body.appendChild(errorNotification);
             
             setTimeout(() => {
-                if (errorNotification.parentElement) {
-                    errorNotification.remove();
-                }
+                this.removeNotificationWithAnimation(errorNotification);
             }, 3000);
         }
     }
