@@ -334,21 +334,6 @@ function renderHistory() {
                     <button class="delete-btn" onclick="deleteHistoryRecord(${index})" title="删除此记录">×</button>
                 </div>
             `;
-        } else if (record.type === 'general') {
-            // 通用记录（计时器等）
-            let detailDisplay = '';
-            if (record.detail) {
-                detailDisplay = `<div style="font-size:13px;color:#ccc;margin-top:4px;">${record.detail}</div>`;
-            }
-            return `
-                <div class="history-item general" style="border-left-color: #16a085;">
-                    <span class="action">${record.actionText}</span>
-                    ${detailDisplay}
-                    <div style="font-size:12px;color:#aaa;margin-top:2px;">${record.timestamp}</div>
-                    <button class="copy-btn" onclick="copyHistoryRecord(${index})" title="复制此记录">📋</button>
-                    <button class="delete-btn" onclick="deleteHistoryRecord(${index})" title="删除此记录">×</button>
-                </div>
-            `;
         } else {
             // 状态变化记录（死亡/票出）
             return `
@@ -425,30 +410,3 @@ function exportHistory() {
     // 复制到剪贴板
     copyToClipboard(exportText, '历史记录已复制到剪贴板');
 }
-
-// 添加通用历史记录 - 用于计时器等非座位相关的操作
-function addGeneralHistoryRecord(title, action, detail = '') {
-    const record = {
-        timestamp: new Date().toLocaleTimeString(),
-        action: 'general',
-        actionText: `${title} ${action}`,
-        detail: detail,
-        type: 'general'
-    };
-    
-    history.push(record);
-    renderHistory();
-    saveState();
-}
-
-// 创建历史管理器对象以便其他模块使用
-const historyManager = {
-    addEntry: addGeneralHistoryRecord,
-    addSeatRecord: addHistoryRecord,
-    addCounterRecord: addCounterHistoryRecord,
-    addSkillRecord: addSkillHistoryRecord,
-    addEconomyRecord: addEconomyHistoryRecord,
-    addVoteRecord: addVoteHistoryRecord,
-    addDayRecord: addDayHistoryRecord,
-    addSeatPickRecord: addSeatPickHistoryRecord
-};
