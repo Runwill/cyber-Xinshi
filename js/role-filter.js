@@ -22,6 +22,14 @@ function applyToolsRoleFilter() {
     // 不关闭面板，让用户可以继续使用其他功能
 }
 
+// 实时应用身份筛选
+function onToolsRoleFilterInput() {
+    const input = document.getElementById('toolsRoleFilterInput');
+    roleFilter = input.value.trim();
+    renderSeats();
+    renderVoteArea();
+}
+
 // 通用函数：生成下拉菜单内容
 function generateDropdownHtml(seatIndex, inputValue = '', forceShowAll = false) {
     let dropdownHtml = '';
@@ -120,14 +128,17 @@ function showDropdown(index) {
 
 // 初始化身份筛选和技能弹窗的键盘事件
 function initRoleFilterEvents() {
-    // 工具面板的键盘事件
-    document.getElementById('toolsRoleFilterInput').addEventListener('keydown', function(e){
-        if(e.key === 'Enter') {
-            e.preventDefault();
-            applyToolsRoleFilter();
-        }
+    // 工具面板的键盘事件和实时输入监听
+    const toolsInput = document.getElementById('toolsRoleFilterInput');
+    
+    // 实时监听输入变化
+    toolsInput.addEventListener('input', onToolsRoleFilterInput);
+    
+    // 键盘事件
+    toolsInput.addEventListener('keydown', function(e){
         if(e.key === 'Escape') closeToolsPanel();
     });
+    
     // 点击工具面板外关闭
     document.getElementById('toolsPanel').addEventListener('mousedown', function(e){
         if(e.target === this) closeToolsPanel();

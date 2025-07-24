@@ -44,6 +44,16 @@ body {
     background: #217dbb;
 }
 
+/* 工具设置按钮特殊样式 */
+#toolsPanelBtn {
+    background: #3498db !important;
+    color: #fff !important;
+}
+
+#toolsPanelBtn:hover {
+    background: #217dbb !important;
+}
+
 .circle-container {
     position: relative;
     width: 600px;

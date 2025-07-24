@@ -34,7 +34,7 @@
     <h1>本穴世界</h1>
     <!-- 计数器区域 -->
     <div class="counter-container">
-        <button id="toolsPanelBtn" onclick="showToolsPanel()" style="color:#fff;">工具设置</button>
+        <button id="toolsPanelBtn" onclick="showToolsPanel()">工具设置</button>
         <input type="number" id="counterInput" value="20" onchange="setCounter(this.value)" onkeydown="handleCounterKeydown(event)">
         <button onclick="resetAll()" style="background:#888;color:#fff;">重置全部</button>
     </div>
@@ -110,8 +110,7 @@
             <!-- 身份筛选区域 -->
             <div class="tools-section">
                 <div class="tools-section-title">身份筛选</div>
-                <textarea id="toolsRoleFilterInput" placeholder="身份名关键词" class="tools-role-filter-input"></textarea>
-                <button onclick="applyToolsRoleFilter()" class="tools-btn tools-btn-primary">应用筛选</button>
+                <textarea id="toolsRoleFilterInput" placeholder="输入身份名关键词，实时筛选..." class="tools-role-filter-input"></textarea>
             </div>
             
             <!-- 版本检查区域 -->
