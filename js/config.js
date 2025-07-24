@@ -1,5 +1,5 @@
 // 应用版本配置
-const APP_VERSION = "v0.5.1.250724";
+const APP_VERSION = "v0.5.2.250725";
 const APP_NAME = "本穴世界";
 
 // 身份字典 - 键名为身份名，值包含阵营信息、计数器配置和结算优先级

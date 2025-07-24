@@ -2,6 +2,13 @@
 class ChangelogManager {
     constructor() {
         this.changelog = {
+            "v0.5.2.250725": {
+                title: "v0.5.2.250725",
+                date: "2024年7月25日",
+                features: [
+                    "新增功能，如果郝经存活，复制第1天的结算信息时，询问是否模糊经济"
+                ]
+            },
             "v0.5.1.250724": {
                 title: "v0.5.1.250724",
                 date: "2024年7月24日",
