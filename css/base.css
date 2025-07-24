@@ -46,12 +46,12 @@ body {
 
 /* 工具设置按钮特殊样式 */
 #toolsPanelBtn {
-    background: #3498db !important;
+    background: #4a5568 !important;
     color: #fff !important;
 }
 
 #toolsPanelBtn:hover {
-    background: #217dbb !important;
+    background: #2d3748 !important;
 }
 
 .circle-container {

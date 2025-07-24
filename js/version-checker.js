@@ -38,65 +38,40 @@ class VersionChecker {
     // 从GitHub获取最新版本
     async fetchLatestVersion() {
         try {
-            // 首先尝试获取正式发布的最新版本
-            let response = await fetch(`https://api.github.com/repos/${this.githubRepo}/releases/latest`, {
+            // 直接获取所有releases，这样可以获取到最新版本（包括预发布版本）
+            let response = await fetch(`https://api.github.com/repos/${this.githubRepo}/releases`, {
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
                     'Accept': 'application/vnd.github.v3+json'
                 }
             });
             
-            if (response.status === 404) {
-                // 如果没有正式发布的版本，尝试获取所有releases（包括预发布版本）
-                console.log('没有找到正式发布版本，尝试获取所有releases（包括预发布版本）');
-                response = await fetch(`https://api.github.com/repos/${this.githubRepo}/releases`, {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-                
-                if (response.status === 404 || !response.ok) {
-                    // 如果还是404，说明真的没有任何releases
-                    console.warn('GitHub仓库还没有任何Release，请先在GitHub上创建Release');
-                    return {
-                        noReleases: true,
-                        repoUrl: `https://github.com/${this.githubRepo}`
-                    };
-                }
-                
-                const releases = await response.json();
-                if (!releases || releases.length === 0) {
-                    return {
-                        noReleases: true,
-                        repoUrl: `https://github.com/${this.githubRepo}`
-                    };
-                }
-                
-                // 获取最新的release（包括预发布版本）
-                const latestRelease = releases[0];
+            if (response.status === 404 || !response.ok) {
+                // 如果404，说明没有任何releases
+                console.warn('GitHub仓库还没有任何Release，请先在GitHub上创建Release');
                 return {
-                    version: latestRelease.tag_name.replace(/^v/, ''),
-                    name: latestRelease.name,
-                    body: latestRelease.body,
-                    url: latestRelease.html_url,
-                    publishedAt: latestRelease.published_at,
-                    isPrerelease: latestRelease.prerelease
+                    noReleases: true,
+                    repoUrl: `https://github.com/${this.githubRepo}`
                 };
             }
             
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            const releases = await response.json();
+            if (!releases || releases.length === 0) {
+                return {
+                    noReleases: true,
+                    repoUrl: `https://github.com/${this.githubRepo}`
+                };
             }
             
-            const data = await response.json();
+            // 获取最新的release（GitHub API返回的releases按发布时间降序排列，第一个就是最新的）
+            const latestRelease = releases[0];
             return {
-                version: data.tag_name.replace(/^v/, ''), // 移除v前缀
-                name: data.name,
-                body: data.body,
-                url: data.html_url,
-                publishedAt: data.published_at,
-                isPrerelease: data.prerelease || false
+                version: latestRelease.tag_name.replace(/^v/, ''),
+                name: latestRelease.name,
+                body: latestRelease.body,
+                url: latestRelease.html_url,
+                publishedAt: latestRelease.published_at,
+                isPrerelease: latestRelease.prerelease
             };
         } catch (error) {
             console.error('获取版本信息失败:', error);

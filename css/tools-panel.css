@@ -89,12 +89,12 @@
 }
 
 .tools-btn-success {
-    background: #888;
+    background: #4a5568;
     color: #fff;
 }
 
 .tools-btn-success:hover {
-    background: #666;
+    background: #2d3748;
 }
 
 .tools-btn-danger {
