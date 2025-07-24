@@ -98,15 +98,19 @@
 }
 
 .tools-btn-info {
-    background: #3498db;
+    background: rgba(0, 0, 0, 0.3);
     color: #fff;
+    border: 1px solid #888;
     margin-bottom: 8px;
     display: block;
     width: 100%;
+    transition: all 0.2s ease;
 }
 
 .tools-btn-info:hover {
-    background: #2980b9;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #aaa;
+    color: #fff;
 }
 
 .tools-btn-danger {
