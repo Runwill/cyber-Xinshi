@@ -1,0 +1,211 @@
+/* 更新公告弹窗样式 */
+.changelog-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.changelog-dialog {
+    background: #2d2d2d;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease-out;
+    color: #fff;
+}
+
+.changelog-dialog-large {
+    max-width: 800px;
+    max-height: 85vh;
+}
+
+.changelog-dialog-small {
+    max-width: 400px;
+    max-height: 300px;
+}
+
+.changelog-header {
+    background: #3a3a3a;
+    padding: 16px 20px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.changelog-header h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.changelog-date {
+    color: #888;
+    font-size: 14px;
+    margin-left: 12px;
+}
+
+.changelog-close {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.changelog-close:hover {
+    background: #444;
+    color: #fff;
+}
+
+.changelog-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.changelog-list {
+    margin: 0;
+    padding-left: 20px;
+    color: #ddd;
+    line-height: 1.6;
+}
+
+.changelog-list li {
+    margin-bottom: 8px;
+    color: #ddd;
+}
+
+.changelog-list li:last-child {
+    margin-bottom: 0;
+}
+
+.changelog-version {
+    margin-bottom: 32px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 20px;
+}
+
+.changelog-version:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.changelog-version-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.changelog-version-header h4 {
+    margin: 0;
+    color: #4fc3f7;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.changelog-version-header .changelog-date {
+    margin-left: 12px;
+}
+
+.changelog-footer {
+    background: #3a3a3a;
+    padding: 16px 20px;
+    border-top: 1px solid #444;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.changelog-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.changelog-btn-primary {
+    background: #3498db;
+    color: #fff;
+}
+
+.changelog-btn-primary:hover {
+    background: #2980b9;
+}
+
+.changelog-btn-secondary {
+    background: #666;
+    color: #fff;
+}
+
+.changelog-btn-secondary:hover {
+    background: #555;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 滚动条样式 */
+.changelog-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.changelog-content::-webkit-scrollbar-track {
+    background: #444;
+    border-radius: 4px;
+}
+
+.changelog-content::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+}
+
+.changelog-content::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}

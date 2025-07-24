@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/version.css">
     <link rel="stylesheet" href="css/role-tooltip.css">
     <link rel="stylesheet" href="css/tools-panel.css">
+    <link rel="stylesheet" href="css/changelog.css">
     <script src="js/config.js"></script>
     <script src="js/counter-manager.js"></script>
     <script src="js/role-filter.js"></script>
@@ -27,6 +28,7 @@
     <script src="js/panel-manager.js"></script>
     <script src="js/role-tooltip-manager.js"></script>
     <script src="js/version-checker.js"></script>
+    <script src="js/changelog-manager.js"></script>
     <script src="js/main.js"></script>
 
 </head>
@@ -117,6 +119,13 @@
             <div class="tools-section">
                 <div class="tools-section-title">版本检查</div>
                 <button onclick="versionChecker.manualCheck()" class="tools-btn tools-btn-success">检查更新</button>
+            </div>
+            
+            <!-- 更新公告区域 -->
+            <div class="tools-section">
+                <div class="tools-section-title">更新公告</div>
+                <button onclick="changelogManager.showChangelogDialog()" class="tools-btn tools-btn-info">查看当前版本公告</button>
+                <button onclick="changelogManager.showAllChangelogs()" class="tools-btn tools-btn-info">查看所有版本公告</button>
             </div>
             
             <!-- 关闭按钮 -->

@@ -97,6 +97,18 @@
     background: #2d3748;
 }
 
+.tools-btn-info {
+    background: #3498db;
+    color: #fff;
+    margin-bottom: 8px;
+    display: block;
+    width: 100%;
+}
+
+.tools-btn-info:hover {
+    background: #2980b9;
+}
+
 .tools-btn-danger {
     background: #888;
     color: #fff;
