@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/markers.css">
     <link rel="stylesheet" href="css/version.css">
     <link rel="stylesheet" href="css/role-tooltip.css">
+    <link rel="stylesheet" href="css/tools-panel.css">
     <script src="js/config.js"></script>
     <script src="js/counter-manager.js"></script>
     <script src="js/role-filter.js"></script>
@@ -33,10 +34,9 @@
     <h1>本穴世界</h1>
     <!-- 计数器区域 -->
     <div class="counter-container">
-        <button id="roleFilterBtn" onclick="showRoleFilterDialog()" style="color:#fff;">身份筛选</button>
+        <button id="toolsPanelBtn" onclick="showToolsPanel()" style="color:#fff;">工具设置</button>
         <input type="number" id="counterInput" value="20" onchange="setCounter(this.value)" onkeydown="handleCounterKeydown(event)">
         <button onclick="resetAll()" style="background:#888;color:#fff;">重置全部</button>
-        <button id="versionCheckBtn" onclick="versionChecker.manualCheck()">检查更新</button>
     </div>
     <div class="controls">
         <button onclick="removeSeat()">减少座位</button>
@@ -99,6 +99,29 @@
                 <button class="phase-btn day-night" onclick="toggleDayNight()">切换昼夜</button>
                 <button class="phase-btn" id="nextPhaseBtn" onclick="nextPhaseStep()">下一步</button>
             </div>
+        </div>
+    </div>
+
+    <!-- 工具设置面板 -->
+    <div id="toolsPanel">
+        <div class="tools-panel-content">
+            <div class="tools-panel-title">工具设置</div>
+            
+            <!-- 身份筛选区域 -->
+            <div class="tools-section">
+                <div class="tools-section-title">身份筛选</div>
+                <textarea id="toolsRoleFilterInput" placeholder="身份名关键词" class="tools-role-filter-input"></textarea>
+                <button onclick="applyToolsRoleFilter()" class="tools-btn tools-btn-primary">应用筛选</button>
+            </div>
+            
+            <!-- 版本检查区域 -->
+            <div class="tools-section">
+                <div class="tools-section-title">版本检查</div>
+                <button onclick="versionChecker.manualCheck()" class="tools-btn tools-btn-success">检查更新</button>
+            </div>
+            
+            <!-- 关闭按钮 -->
+            <button onclick="closeToolsPanel()" class="tools-btn tools-btn-danger">关闭</button>
         </div>
     </div>
 

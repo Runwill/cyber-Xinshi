@@ -2,6 +2,26 @@
 // 身份筛选功能
 let roleFilter = "";
 
+// 工具面板管理函数
+function showToolsPanel() {
+    document.getElementById('toolsPanel').style.display = 'flex';
+    const input = document.getElementById('toolsRoleFilterInput');
+    input.value = roleFilter;
+    setTimeout(() => input.focus(), 100);
+}
+
+function closeToolsPanel() {
+    document.getElementById('toolsPanel').style.display = 'none';
+}
+
+function applyToolsRoleFilter() {
+    const input = document.getElementById('toolsRoleFilterInput');
+    roleFilter = input.value.trim();
+    renderSeats();
+    renderVoteArea();
+    // 不关闭面板，让用户可以继续使用其他功能
+}
+
 // 通用函数：生成下拉菜单内容
 function generateDropdownHtml(seatIndex, inputValue = '', forceShowAll = false) {
     let dropdownHtml = '';
@@ -100,6 +120,19 @@ function showDropdown(index) {
 
 // 初始化身份筛选和技能弹窗的键盘事件
 function initRoleFilterEvents() {
+    // 工具面板的键盘事件
+    document.getElementById('toolsRoleFilterInput').addEventListener('keydown', function(e){
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            applyToolsRoleFilter();
+        }
+        if(e.key === 'Escape') closeToolsPanel();
+    });
+    // 点击工具面板外关闭
+    document.getElementById('toolsPanel').addEventListener('mousedown', function(e){
+        if(e.target === this) closeToolsPanel();
+    });
+
     // 支持回车确认、ESC关闭身份筛选弹窗
     document.getElementById('roleFilterDialogInput').addEventListener('keydown', function(e){
         if(e.key === 'Enter') {
