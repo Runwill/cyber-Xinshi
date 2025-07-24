@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/role-tooltip.css">
     <link rel="stylesheet" href="css/tools-panel.css">
     <link rel="stylesheet" href="css/changelog.css">
+    <link rel="stylesheet" href="css/timer.css">
     <script src="js/config.js"></script>
     <script src="js/counter-manager.js"></script>
     <script src="js/role-filter.js"></script>
@@ -29,6 +30,7 @@
     <script src="js/role-tooltip-manager.js"></script>
     <script src="js/version-checker.js"></script>
     <script src="js/changelog-manager.js"></script>
+    <script src="js/timer-manager.js"></script>
     <script src="js/main.js"></script>
 
 </head>
@@ -78,6 +80,21 @@
             <button class="seat-picker-btn" id="seatPickerBtn" onclick="pickRandomSeat()">
                 随机抽取
             </button>
+        </div>
+    </div>
+
+    <!-- 计时器 -->
+    <div class="timer-panel" id="timerPanel">
+        <div class="timer-panel-header">
+            <span>计时器</span>
+        </div>
+        <div class="timer-panel-content">
+            <div class="timer-display" id="timerDisplay">02:00</div>
+            <div class="timer-controls">
+                <button class="timer-btn timer-btn-start" id="timerStartBtn" onclick="startTimer()">开始</button>
+                <button class="timer-btn timer-btn-pause" id="timerPauseBtn" onclick="pauseTimer()" disabled>暂停</button>
+                <button class="timer-btn timer-btn-reset" id="timerResetBtn" onclick="resetTimer()">重置</button>
+            </div>
         </div>
     </div>
 
