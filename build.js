@@ -104,7 +104,10 @@ function buildSingleFile(minify = false) {
             if (minify) {
                 jsContent = jsContent
                     .replace(/\/\*[\s\S]*?\*\//g, '') // 移除多行注释
+                    // 先保护 URL 中的 //，然后移除注释，最后恢复
+                    .replace(/(https?:)\/\//g, '$1___DOUBLE_SLASH___') // 保护URL中的//
                     .replace(/\/\/.*$/gm, '') // 移除单行注释
+                    .replace(/___DOUBLE_SLASH___/g, '//') // 恢复URL中的//
                     .replace(/\s+/g, ' ') // 压缩空白
                     .replace(/\s*([{}();,:])\s*/g, '$1') // 压缩操作符周围的空白
                     .trim();

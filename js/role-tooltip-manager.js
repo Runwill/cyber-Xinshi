@@ -95,7 +95,7 @@ class RoleInfoPanelManager {
         this.panel.style.left = `${boundedX}px`;
         this.panel.style.top = `${boundedY}px`;
         this.panel.style.right = 'auto'; // 移除右侧定位
-    }
+    };
 
     handleDragEnd = () => {
         this.isDragging = false;
@@ -106,7 +106,7 @@ class RoleInfoPanelManager {
         
         // 保存位置
         this.savePosition();
-    }
+    };
 
     // 保存当前位置到localStorage
     savePosition() {
