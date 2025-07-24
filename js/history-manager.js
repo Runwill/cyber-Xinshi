@@ -235,10 +235,32 @@ function copyHistoryRecord(index) {
         const aliveSeats = record.alivePlayers ? record.alivePlayers.map(player => {
             // 提取座位号（数字部分）
             const match = player.match(/^(\d+)/);
-            return match ? match[1] + '号' : '';
-        }).filter(seat => seat).join('、') : '';
-        const economyInfo = record.economyValue !== undefined ? record.economyValue : '';
-        copyText = `${record.actionText} 经济：${economyInfo} 存活：${aliveSeats}`;
+            return match ? match[1] : '';
+        }).filter(seat => seat).join(' ') : '';
+        
+        let economyInfo = record.economyValue !== undefined ? record.economyValue.toString() : '';
+        
+        // 检查场上是否存在郝经，且只有第1天才能模糊
+        const hasHaoJing = seats.some(seat => 
+            !seat.dead && !seat.out && !seat.suicide && 
+            seat.name && seat.name.includes('郝经')
+        );
+        
+        if (hasHaoJing && economyInfo && record.dayCount === 1) {
+            // 询问是否模糊经济（只有第1天）
+            const shouldObfuscate = confirm('郝经存活，是否模糊经济点？');
+            if (shouldObfuscate) {
+                if (economyInfo.length === 1) {
+                    // 只有一位数，在前面加上?
+                    economyInfo = '?' + economyInfo;
+                } else {
+                    // 多位数，首位变成?
+                    economyInfo = '?' + economyInfo.substring(1);
+                }
+            }
+        }
+        
+        copyText = `${record.actionText}\n经济：${economyInfo}\n存活：${aliveSeats}`;
     } else {
         // 状态变化记录：去掉身份，保留座位号和动作
         copyText = `${record.seatNumber}号${record.actionText}`;
@@ -398,9 +420,13 @@ function exportHistory() {
             return record.actionText;
         } else if (record.type === 'day') {
             // 日数记录：包含天数、经济和存活玩家信息
-            const aliveInfo = record.alivePlayers ? record.alivePlayers.join('、') : '';
+            const aliveInfo = record.alivePlayers ? record.alivePlayers.map(player => {
+                // 提取座位号（数字部分）
+                const match = player.match(/^(\d+)/);
+                return match ? match[1] : '';
+            }).filter(seat => seat).join(' ') : '';
             const economyInfo = record.economyValue !== undefined ? record.economyValue : '';
-            return `${record.actionText} 经济：${economyInfo} 存活：${aliveInfo}`;
+            return `${record.actionText}\n经济：${economyInfo}\n存活：${aliveInfo}`;
         } else {
             // 状态变化记录：座位号+角色名+动作
             return `${record.seatNumber}${record.characterName}${record.actionText}`;
