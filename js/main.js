@@ -34,6 +34,7 @@ function initializeApplication() {
     initRoleFilterEvents();
     initDragHandlers();
     initGlobalKeyEvents();
+    initTimer();
     
     // 暴露全局函数
     exposeGlobalFunctions();
@@ -66,6 +67,8 @@ function exposeGlobalFunctions() {
     window.nextPhaseStep = nextPhaseStep;
     window.pickRandomSeat = pickRandomSeat;
     window.setSkillPreset = setSkillPreset;
+    window.toggleTimer = toggleTimer;
+    window.resetTimer = resetTimer;
 }
 
 // 页面加载完成后初始化

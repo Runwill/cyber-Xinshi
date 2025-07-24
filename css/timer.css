@@ -1,0 +1,153 @@
+/* 倒计时器样式 */
+.timer {
+    position: fixed;
+    left: 240px; /* 在座位抽取器右侧 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+
+.timer-header {
+    padding: 8px 12px;
+    background: rgba(68, 68, 68, 0.8);
+    border-bottom: 1px solid #555;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    text-align: center;
+    cursor: move;
+}
+
+.timer.dragging {
+    opacity: 0.8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.timer-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.timer-display {
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    letter-spacing: 2px;
+    line-height: 1;
+}
+
+.timer-display.highlight {
+    background: rgba(52, 152, 219, 0.3);
+    border-color: #3498db;
+    color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.timer-display.warning {
+    background: rgba(241, 196, 15, 0.3);
+    border-color: #f1c40f;
+    color: #f1c40f;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+}
+
+.timer-display.danger {
+    background: rgba(231, 76, 60, 0.3);
+    border-color: #e74c3c;
+    color: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+.timer-display.blink {
+    animation: blink 0.3s ease-in-out;
+}
+
+.timer-controls {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.timer-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s;
+    flex: 1;
+}
+
+.timer-btn-start {
+    background: #27ae60;
+}
+
+.timer-btn-start:hover {
+    background: #1f884b;
+    transform: translateY(-1px);
+}
+
+.timer-btn-pause {
+    background: #f39c12;
+}
+
+.timer-btn-pause:hover {
+    background: #d4820a;
+    transform: translateY(-1px);
+}
+
+.timer-btn-reset {
+    background: #3498db;
+}
+
+.timer-btn-reset:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+.timer-btn:active {
+    transform: translateY(0);
+}
+
+.timer-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+}
