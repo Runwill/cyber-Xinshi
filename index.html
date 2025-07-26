@@ -31,6 +31,7 @@
     <script src="js/version-checker.js"></script>
     <script src="js/changelog-manager.js"></script>
     <script src="js/timer-manager.js"></script>
+    <script src="js/ui-manager.js"></script>
     <script src="js/main.js"></script>
 
 </head>
@@ -84,7 +85,7 @@
     </div>
 
     <!-- 倒计时器 -->
-    <div class="timer" id="timer">
+    <div class="timer" id="timer" style="display: none;">
         <div class="timer-header">
             <span>倒计时器</span>
         </div>
@@ -142,6 +143,15 @@
                 <div class="tools-section-title">更新公告</div>
                 <button onclick="changelogManager.showChangelogDialog()" class="tools-btn tools-btn-info tools-btn-current">查看当前版本公告</button>
                 <button onclick="changelogManager.showAllChangelogs()" class="tools-btn tools-btn-info tools-btn-all">查看所有版本公告</button>
+            </div>
+
+            <!-- 界面显示区域 -->
+            <div class="tools-section">
+                <div class="tools-section-title">界面显示</div>
+                <label class="tools-checkbox-label">
+                    <input type="checkbox" id="timerVisibilityToggle" onchange="toggleTimerVisibility(this.checked)">
+                    显示倒计时器
+                </label>
             </div>
             
             <!-- 关闭按钮 -->

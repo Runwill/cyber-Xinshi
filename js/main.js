@@ -35,6 +35,7 @@ function initializeApplication() {
     initDragHandlers();
     initGlobalKeyEvents();
     initTimer();
+    initializeUIState();
     
     // 暴露全局函数
     exposeGlobalFunctions();
@@ -69,6 +70,7 @@ function exposeGlobalFunctions() {
     window.setSkillPreset = setSkillPreset;
     window.toggleTimer = toggleTimer;
     window.resetTimer = resetTimer;
+    window.toggleTimerVisibility = toggleTimerVisibility;
 }
 
 // 页面加载完成后初始化
