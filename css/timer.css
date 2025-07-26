@@ -1,9 +1,8 @@
 /* 倒计时器样式 */
 .timer {
     position: fixed;
-    left: 240px; /* 在座位抽取器右侧 */
-    top: 50%;
-    transform: translateY(-50%);
+    left: 20px; /* 与历史记录框对齐 */
+    bottom: 160px; /* 在历史记录框上方 */
     width: 200px;
     background: rgba(0, 0, 0, 0.85);
     border: 1px solid #444;

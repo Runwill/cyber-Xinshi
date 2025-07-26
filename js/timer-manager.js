@@ -145,6 +145,20 @@ class TimerManager {
         }
     }
     
+    resetTimerPosition() {
+        if (!this.timerElement) return;
+        
+        // 重置到默认位置（历史记录框上方）
+        this.timerElement.style.left = '20px';
+        this.timerElement.style.bottom = '160px';
+        this.timerElement.style.top = 'auto';
+        this.timerElement.style.right = 'auto';
+        this.timerElement.style.transform = 'none';
+        
+        // 清除保存的位置
+        localStorage.removeItem('timerPosition');
+    }
+    
     makeTimerDraggable() {
         if (!this.timerElement) return;
         
@@ -156,18 +170,43 @@ class TimerManager {
         let currentY;
         let initialX;
         let initialY;
-        let xOffset = 0;
-        let yOffset = 0;
+        let xOffset = 20; // 默认左边距
+        let yOffset = 160; // 默认距离底部
+        let useBottomPosition = true; // 标记是否使用bottom定位
         
         // 从localStorage恢复位置
         const savedPosition = localStorage.getItem('timerPosition');
         if (savedPosition) {
-            const position = JSON.parse(savedPosition);
-            this.timerElement.style.left = position.x + 'px';
-            this.timerElement.style.top = position.y + 'px';
-            this.timerElement.style.transform = 'none';
-            xOffset = position.x;
-            yOffset = position.y;
+            try {
+                const position = JSON.parse(savedPosition);
+                if (position.useBottom) {
+                    // 使用bottom定位
+                    this.timerElement.style.left = position.x + 'px';
+                    this.timerElement.style.bottom = position.y + 'px';
+                    this.timerElement.style.top = 'auto';
+                    this.timerElement.style.right = 'auto';
+                    this.timerElement.style.transform = 'none';
+                    xOffset = position.x;
+                    yOffset = position.y;
+                    useBottomPosition = true;
+                } else {
+                    // 使用top定位
+                    this.timerElement.style.left = position.x + 'px';
+                    this.timerElement.style.top = position.y + 'px';
+                    this.timerElement.style.bottom = 'auto';
+                    this.timerElement.style.right = 'auto';
+                    this.timerElement.style.transform = 'none';
+                    xOffset = position.x;
+                    yOffset = position.y;
+                    useBottomPosition = false;
+                }
+            } catch (e) {
+                // 如果解析失败，使用默认位置
+                this.resetTimerPosition();
+            }
+        } else {
+            // 如果没有保存位置，使用默认位置
+            this.resetTimerPosition();
         }
         
         header.addEventListener('mousedown', dragStart);
@@ -177,8 +216,9 @@ class TimerManager {
         function dragStart(e) {
             if (e.target.tagName === 'BUTTON') return;
             
-            initialX = e.clientX - xOffset;
-            initialY = e.clientY - yOffset;
+            const rect = timerManager.timerElement.getBoundingClientRect();
+            initialX = e.clientX - rect.left;
+            initialY = e.clientY - rect.top;
             
             if (e.target === header || header.contains(e.target)) {
                 isDragging = true;
@@ -192,12 +232,19 @@ class TimerManager {
                 currentX = e.clientX - initialX;
                 currentY = e.clientY - initialY;
                 
+                // 确保不超出屏幕边界
+                currentX = Math.max(0, Math.min(currentX, window.innerWidth - timerManager.timerElement.offsetWidth));
+                currentY = Math.max(0, Math.min(currentY, window.innerHeight - timerManager.timerElement.offsetHeight));
+                
                 xOffset = currentX;
                 yOffset = currentY;
+                useBottomPosition = false; // 拖拽时使用top定位
                 
-                timerManager.timerElement.style.transform = 'none';
                 timerManager.timerElement.style.left = currentX + 'px';
                 timerManager.timerElement.style.top = currentY + 'px';
+                timerManager.timerElement.style.bottom = 'auto';
+                timerManager.timerElement.style.right = 'auto';
+                timerManager.timerElement.style.transform = 'none';
             }
         }
         
@@ -209,7 +256,8 @@ class TimerManager {
                 // 保存位置到localStorage
                 localStorage.setItem('timerPosition', JSON.stringify({
                     x: xOffset,
-                    y: yOffset
+                    y: yOffset,
+                    useBottom: useBottomPosition
                 }));
             }
         }

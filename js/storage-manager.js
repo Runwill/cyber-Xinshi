@@ -120,5 +120,11 @@ function resetAll() {
         
         // 重置身份信息框位置
         resetRoleInfoPanelPosition();
+        
+        // 重置倒计时器位置和状态
+        if (timerManager) {
+            timerManager.resetTimerPosition();
+            timerManager.reset();
+        }
     }
 }
