@@ -2,6 +2,13 @@
 class ChangelogManager {
     constructor() {
         this.changelog = {
+            "v0.5.3.250726": {
+                title: "v0.5.3.250726",
+                date: "2024年7月26日",
+                features: [
+                    "新增功能，在工具设置中可选择渲染倒计时器"
+                ]
+            },
             "v0.5.2.250725": {
                 title: "v0.5.2.250725",
                 date: "2024年7月25日",
